@@ -1,0 +1,9 @@
+if win ==1
+    yourwins = fopen('winsandloses.txt', 'w');
+    fprintf(yourwins, '%d ./n', 1)
+    fclose(yourwins)
+else
+    yourwins = fopen('winsandloses.txt', 'w');
+    fprintf(yourwins, '%d ./n', 0)
+    fclose(yourwins)
+end
