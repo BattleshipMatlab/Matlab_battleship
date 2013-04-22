@@ -62,12 +62,11 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
     function callbackfn(source,eventdata)
         x = str2num(get(edit1, 'String'));
         y = str2num(get(edit2, 'String'));
-        z = sprintf('r%d%d',x,y);
-        Row = str2var(sprintf('map.row%d(%d)',y,x))
-        if Row == 1
-            set(z,'Color', 'r')
-        elseif Row == 0
-            set(z,'Color', [0.5 0.5 0.5])
+        Pos = eval(sprintf('map.row%d(%d)',y,x))
+        if Pos == 1
+            set(z2,'Color', 'r')
+        elseif Pos == 0
+            set(z2,'Color', [0.5 0.5 0.5])
         end
     end
 end
