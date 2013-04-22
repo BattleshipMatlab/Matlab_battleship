@@ -1,21 +1,21 @@
 %final project gui
-function Battleship
+function map = Battleship
 map1 = struct('row1', [1 1 0 0 0 0], 'row2', [0 0 0 0 1 0], 'row3', [0 0 0 0 1 0], 'row4', [1 0 0 0 1 0], 'row5', [1 0 0 0 0 0], 'row6', [0 0 1 1 1 0]);
 map2 = struct('row1', [0 0 1 1 1 0], 'row2', [0 0 0 0 0 0], 'row3', [0 1 0 1 1 0], 'row4', [0 1 0 0 0 0], 'row5', [0 1 0 0 1 0], 'row6', [0 0 0 0 1 0]);
-map3 = struct('row1', [0 0 0 0 0 0], 'row2', [0,0,1,1,1,0], 'row3', [1,1,0,0,0,0], 'row4', [0,0,0,1,0,0], 'row5', [0,0,0,1,0,0], 'row6', [1,1,1,0,0,0]);
-map4 = struct('row1', [1 0 0 0 0 1], 'row2', [1,0,0,0,0,1], 'row3', [0,0,1,1,0,1], 'row4', [0,0,0,0,0,0], 'row5', [0,0,0,0,0,1], 'row6', [0,0,0,0,0,1]);
-map5 = struct('row1', [0 0 0 0 0 0], 'row2', [0,1,0,0,0,0], 'row3', [0,1,0,0,1,0], 'row4', [0,1,0,0,1,0], 'row5', [0,0,1,0,1,0], 'row6', [0,0,1,0,1,1]);
-map6 = struct('row1', [1 1 1 0 0 0], 'row2', [1,0,0,0,0,0], 'row3', [1,0,1,0,0,0], 'row4', [0,1,1,1,0,0], 'row5', [0,0,1,0,0,0], 'row6', [0,0,0,0,0,0]);
+map3 = struct('row1', [0 0 0 0 0 0], 'row2', [0 0 1 1 1 0], 'row3', [1 1 0 0 0 0], 'row4', [0 0 0 1 0 0], 'row5', [0 0 0 1 0 0], 'row6', [1 1 1 0 0 0]);
+map4 = struct('row1', [1 0 0 0 0 1], 'row2', [1 0 0 0 0 1], 'row3', [0 0 1 1 0 1], 'row4', [0 0 0 0 0 0], 'row5', [0 0 0 0 0 1], 'row6', [0 0 0 0 0 1]);
+map5 = struct('row1', [0 0 0 0 0 0], 'row2', [0 1 0 0 0 0], 'row3', [0 1 0 0 1 0], 'row4', [0 1 0 0 1 0], 'row5', [0 0 1 0 1 0], 'row6', [0 0 1 0 1 1]);
+map6 = struct('row1', [1 1 1 0 0 0], 'row2', [1 0 0 0 0 0], 'row3', [1 0 1 0 0 0], 'row4', [0 1 1 1 0 0], 'row5', [0 0 1 0 0 0], 'row6', [0 0 0 0 0 0]);
 mapnumber = randi(6);
 maps = {map1 map2 map3 map4 map5 map6};
 map = maps{mapnumber};
 %Loadwins   add this fuction
-gui2
+gui2(map)
 %SaveWin/loss   add this function
 
 
 end
-function gui2
+function gui2(map)
 f =figure('Position', [1 100 600 600]);
 r11 = uicontrol('Style', 'text', 'String', '(1,1)','Position', [1 300 50 50]);
 r12 = uicontrol('Style', 'text', 'String', '(1,2)','Position', [60 300 50 50]);
@@ -60,8 +60,15 @@ static2 = uicontrol('Style', 'text','String','Pick a y-coordinate ', 'Position',
 edit2 = uicontrol('Style', 'edit', 'Position', [400 140 100 40]);
 Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40], 'Callback', @callbackfn);
     function callbackfn(source,eventdata)
-        x =str2num(get(edit1, 'String'));
-        y =str2num(get(edit2, 'String'));
+        x = str2num(get(edit1, 'String'));
+        y = str2num(get(edit2, 'String'));
+        z = sprintf('r%d%d',x,y);
+        Row = str2var(sprintf('map.row%d(%d)',y,x))
+        if Row == 1
+            set(z,'Color', 'r')
+        elseif Row == 0
+            set(z,'Color', [0.5 0.5 0.5])
+        end
     end
 end
 
