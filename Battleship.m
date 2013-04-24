@@ -95,3 +95,22 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
         end
     end
 end
+
+if win ==1
+    yourwins = fopen('winsandloses.txt', 'w');
+    fprintf(yourwins, '%d ./n', 1)
+    fclose(yourwins)
+else
+    yourwins = fopen('winsandloses.txt', 'w');
+    fprintf(yourwins, '%d ./n', 0)
+    fclose(yourwins)
+end
+
+% The overall structure, and needs are well understood by the coding team.  
+% Some minor work arounds are still required, but for the most part the
+% variables line up well; the code does have some error, but it will be
+% easily fixed with minor alterations.  The file runs battleship in a GUI
+% which is then checked for a win or a loss for the number of hits compared
+% to the number of ships that there were.  Once that is tallied it records
+% the win.  With more work, music, an intro logo, and a win screen can be
+% made to further expand the program.
