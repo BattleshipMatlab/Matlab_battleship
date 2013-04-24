@@ -19,7 +19,6 @@ function gui2(map) %Gui for the map, another gui will be added that allows the p
 f =figure('Position', [1 100 600 600]);
 turns = 25;
 win = 0;
-h = 0;
 r11 = uicontrol('Style', 'text', 'String', '(1,1)','Position', [1 300 50 50]);
 r12 = uicontrol('Style', 'text', 'String', '(1,2)','Position', [60 300 50 50]);
 r13 = uicontrol('Style', 'text', 'String', '(1,3)','Position', [120 300 50 50]);
@@ -64,7 +63,7 @@ edit2 = uicontrol('Style', 'edit', 'Position', [400 140 100 40]);
 Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40], 'Callback', @callbackfn);
     function callbackfn(source,eventdata)
         for i=1:turns
-            while win == 0
+            while win = 0
                 x = str2num(get(edit1, 'String'));
                  y = str2num(get(edit2, 'String'));
         %z2 needs to call the uicontrol for the designated coordinates. A
@@ -73,7 +72,6 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
             if Pos == 1 %Designates a hit
                set(z2,'Color','r')
                 Pos = 3
-                h = h+1;
            elseif Pos == 0 %designates a miss
                 set(z2,'Color', [0.5 0.5 0.5])
                  Pos = 2
@@ -82,16 +80,10 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
            elseif Pos == 3
                sprintf('You have already chosen this area before')
             end  
-           if h == 10
-               win = 1;
-           end
+           
         t = t + 1
         
             end
-            if win == 1
-                sprintf('Congratulations, you win!')
-            end
-           
         end
-    end
 end
+
