@@ -1,22 +1,5 @@
 %final project gui
 function Battleship;
-f =figure('Position', [550 200 200 230]);
-static1 = uicontrol('Style', 'text','String','Pick a difficulty!','Position', [1 180 200 50]);
-easy = uicontrol('Style', 'pushbutton', 'String', 'Easy','Position', [1 120 200 50], 'Callback', @callbackfn1);
-function callbackfn1(source,eventdata)
-       turns=25;
-       set(f,'Visible','off')
-    end
-med = uicontrol('Style', 'pushbutton', 'String', 'Medium','Position', [1 60 200 50], 'Callback', @callbackfn2);
-function callbackfn2(source,eventdata)
-       turns=20;
-       set(f,'Visible','off')
-    end
-hard = uicontrol('Style', 'pushbutton', 'String', 'Hard','Position', [1 1 200 50], 'Callback', @callbackfn3);
-function callbackfn3(source,eventdata)
-       turns=15;
-       set(f,'Visible','off')
-end
 map1 = struct('row1', [1 1 0 0 0 0], 'row2', [0 0 0 0 1 0], 'row3', [0 0 0 0 1 0], 'row4', [1 0 0 0 1 0], 'row5', [1 0 0 0 0 0], 'row6', [0 0 1 1 1 0]);
 map2 = struct('row1', [0 0 1 1 1 0], 'row2', [0 0 0 0 0 0], 'row3', [0 1 0 1 1 0], 'row4', [0 1 0 0 0 0], 'row5', [0 1 0 0 1 0], 'row6', [0 0 0 0 1 0]);
 map3 = struct('row1', [0 0 0 0 0 0], 'row2', [0 0 1 1 1 0], 'row3', [1 1 0 0 0 0], 'row4', [0 0 0 1 0 0], 'row5', [0 0 0 1 0 0], 'row6', [1 1 1 0 0 0]);
@@ -27,8 +10,27 @@ mapnumber = randi(6);
 maps = {map1 map2 map3 map4 map5 map6};
 map = maps{mapnumber};
 %Loadwins   add this fuction
-gui2(map);
-%SaveWin/loss   add this function
+f =figure('Position', [550 200 200 230]);
+static1 = uicontrol('Style', 'text','String','Pick a difficulty!','Position', [1 180 200 50]);
+easy = uicontrol('Style', 'pushbutton', 'String', 'Easy','Position', [1 120 200 50], 'Callback', @callbackfn1);
+function callbackfn1(source,eventdata)
+       turns=25;
+       set(f,'Visible','off')
+       gui2(map,turns)
+    end
+med = uicontrol('Style', 'pushbutton', 'String', 'Medium','Position', [1 60 200 50], 'Callback', @callbackfn2);
+function callbackfn2(source,eventdata)
+       turns=20;
+       set(f,'Visible','off')
+       gui2(map,turns)
+    end
+hard = uicontrol('Style', 'pushbutton', 'String', 'Hard','Position', [1 1 200 50], 'Callback', @callbackfn3);
+function callbackfn3(source,eventdata)
+       turns=15;
+       set(f,'Visible','off')
+       gui2(map,turns)
+end
+
 
 
 end
