@@ -1,12 +1,17 @@
-function wins
+function win(x)
+win = x;
 if win ==1
     yourwins = fopen('winsandloses.txt', 'w');
-    fprintf(yourwins, '%d ./n', 1)
-    fclose(yourwins)
+    fprintf(yourwins, '%d ./n', 1);
+    fclose(yourwins);
 else
     yourwins = fopen('winsandloses.txt', 'w');
-    fprintf(yourwins, '%d ./n', 0)
-    fclose(yourwins)
+    fprintf(yourwins, '%d ./n', 0);
+    fclose(yourwins);
 end
+gamedata = importdata('winsandloses.txt');
+gamesplayed = length(gamedata);
+totalwins = sum(gamedata);
+percentwins = totalwins / gamesplayed;    
+disp(percentwins);
 end
-
