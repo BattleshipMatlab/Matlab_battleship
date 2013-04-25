@@ -70,6 +70,7 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
         %workaround needs to be found.
              Pos = eval(sprintf('map.row%d(%d)',y,x))
              Ps = sprintf('row%d(%d)',y,x);
+             ps2 = genvarname(Ps)
             if Pos == 1 %Designates a hit
                %set(z2,'Color','r')
                map.(Ps) = 2
