@@ -15,7 +15,7 @@ gui2(map);
 
 
 end
-function gui2(map); %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
+function gui2(map,turns); %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
 f =figure('Position', [1 100 600 600]);
 turns = 25;
 win = 0;
@@ -69,11 +69,14 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
         %z2 needs to call the uicontrol for the designated coordinates. A
         %workaround needs to be found.
              Pos = eval(sprintf('map.row%d(%d)',y,x))
+             Ps = sprintf('row%d(%d)',y,x);
             if Pos == 1 %Designates a hit
                %set(z2,'Color','r')
+               map.(Ps(
                 h = h+1;
            elseif Pos == 0 %designates a miss
                 %set(z2,'Color', [0.5 0.5 0.5])
+                assignin('base', Ps, 3)
             elseif Pos == 2
                sprintf('You have already chosen this area before')
            elseif Pos == 3
@@ -81,14 +84,10 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
             end  
            if h == 10
                win = 1;
+               sprintf('Congratulations, you win!')
            end
         t = t+1
-            end
-            if win == 1
-                sprintf('Congratulations, you win!')
-            elseif t > turns;
-                sprintf('You Fail Matlab
-            end
+    end
            
 if win ==1
     yourwins = fopen('winsandloses.txt', 'w');

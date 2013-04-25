@@ -69,10 +69,10 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
         %z2 needs to call the uicontrol for the designated coordinates. A
         %workaround needs to be found.
              Pos = eval(sprintf('map.row%d(%d)',y,x))
-             Ps = sprintf('map.row%d(%d)',y,x)
+             Ps = sprintf('row%d(%d)',y,x);
             if Pos == 1 %Designates a hit
                %set(z2,'Color','r')
-               assignin('base', Ps, 2)
+               map.(Ps) = 2
                 h = h+1;
            elseif Pos == 0 %designates a miss
                 %set(z2,'Color', [0.5 0.5 0.5])
