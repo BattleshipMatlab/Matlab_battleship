@@ -1,5 +1,5 @@
 %final project gui
-function map = Battleship
+function Battleship;
 map1 = struct('row1', [1 1 0 0 0 0], 'row2', [0 0 0 0 1 0], 'row3', [0 0 0 0 1 0], 'row4', [1 0 0 0 1 0], 'row5', [1 0 0 0 0 0], 'row6', [0 0 1 1 1 0]);
 map2 = struct('row1', [0 0 1 1 1 0], 'row2', [0 0 0 0 0 0], 'row3', [0 1 0 1 1 0], 'row4', [0 1 0 0 0 0], 'row5', [0 1 0 0 1 0], 'row6', [0 0 0 0 1 0]);
 map3 = struct('row1', [0 0 0 0 0 0], 'row2', [0 0 1 1 1 0], 'row3', [1 1 0 0 0 0], 'row4', [0 0 0 1 0 0], 'row5', [0 0 0 1 0 0], 'row6', [1 1 1 0 0 0]);
@@ -10,16 +10,17 @@ mapnumber = randi(6);
 maps = {map1 map2 map3 map4 map5 map6};
 map = maps{mapnumber};
 %Loadwins   add this fuction
-gui2(map)
+gui2(map);
 %SaveWin/loss   add this function
 
 
 end
-function gui2(map) %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
+function gui2(map,turns); %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
 f =figure('Position', [1 100 600 600]);
 turns = 25;
 win = 0;
 h = 0;
+t = 0;
 r11 = uicontrol('Style', 'text', 'String', '(1,1)','Position', [1 300 50 50]);
 r12 = uicontrol('Style', 'text', 'String', '(1,2)','Position', [60 300 50 50]);
 r13 = uicontrol('Style', 'text', 'String', '(1,3)','Position', [120 300 50 50]);
@@ -63,20 +64,19 @@ static2 = uicontrol('Style', 'text','String','Pick a y-coordinate ', 'Position',
 edit2 = uicontrol('Style', 'edit', 'Position', [400 140 100 40]);
 Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40], 'Callback', @callbackfn);
     function callbackfn(source,eventdata)
-        for i=1:turns
-            while win == 0
                 x = str2num(get(edit1, 'String'));
                  y = str2num(get(edit2, 'String'));
         %z2 needs to call the uicontrol for the designated coordinates. A
         %workaround needs to be found.
              Pos = eval(sprintf('map.row%d(%d)',y,x))
+             Ps = sprintf('map.row%d(%d)',y,x)
             if Pos == 1 %Designates a hit
-               set(z2,'Color','r')
-                Pos = 3
+               %set(z2,'Color','r')
+               assignin('base', Ps, 2)
                 h = h+1;
            elseif Pos == 0 %designates a miss
-                set(z2,'Color', [0.5 0.5 0.5])
-                 Pos = 2
+                %set(z2,'Color', [0.5 0.5 0.5])
+                assignin('base', Ps, 3)
             elseif Pos == 2
                sprintf('You have already chosen this area before')
            elseif Pos == 3
@@ -84,18 +84,11 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
             end  
            if h == 10
                win = 1;
+               sprintf('Congratulations, you win!')
            end
-        t = t + 1
-        
-            end
-            if win == 1
-                sprintf('Congratulations, you win!')
-            end
-           
-        end
+        t = t+1
     end
-end
-
+           
 if win ==1
     yourwins = fopen('winsandloses.txt', 'w');
     fprintf(yourwins, '%d ./n', 1)
@@ -104,6 +97,7 @@ else
     yourwins = fopen('winsandloses.txt', 'w');
     fprintf(yourwins, '%d ./n', 0)
     fclose(yourwins)
+end
 end
 
 % The overall structure, and needs are well understood by the coding team.  
