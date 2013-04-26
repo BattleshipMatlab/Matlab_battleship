@@ -84,7 +84,6 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
 end
 
 function wins(win)
-wins = win;
 if win ==1
     yourwins = fopen('winsandloses.txt', 'w');
     fprintf(yourwins, '%d ./n', 1);
