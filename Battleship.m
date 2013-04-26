@@ -34,7 +34,7 @@ end
 
 end
 function gui2(map,turns); %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
-f =figure('Position', [1 100 600 600]);
+f =figure('Position', [350 100 600 600]);
 win = 0;
 h = 0;
 t = 0;
@@ -51,7 +51,7 @@ edit1 = uicontrol('Style', 'edit', 'Position', [400 140 100 40]);
 static2 = uicontrol('Style', 'text','String','Pick a x-coordinate ', 'Position', [400 300 100 40]);
 edit2 = uicontrol('Style', 'edit', 'Position', [400 240 100 40]);
 Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40], 'Callback', @callbackfn);
-    function callbackfn(source,eventdata)
+    function callbackfn(source,eventdata);
              x = str2num(get(edit1, 'String'));
              y = str2num(get(edit2, 'String'));
              Pos = mapcell{y}(x);
@@ -63,7 +63,7 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
                 t = t+1;
            elseif Pos == 0 %designates a miss
                 set(r{y}(x),'BackgroundColor', [0.5 0.5 0.5])
-                mapcell{y}(x) = 3
+                mapcell{y}(x) = 3;
                 t = t+1;
             elseif Pos == 2
                warndlg('You have already chosen this area before')
@@ -75,31 +75,33 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
                msgbox('Congratulations, you win!')
                fid1 = fopen('wins.txt', 'r');
                gamewin = fscanf(fid1,'%d');
-               gamewin(1) = gamewin(1) + 1
+               gamewin(1) = gamewin(1) + 1;
                fclose(fid1);
                fid2 = fopen('wins.txt','w');
                fprintf(fid1, '%d', gamewin(1));
                fid2 = fopen('losses.txt', 'r');
                wl(fscanf(fid2,'%d'),fscanf(fid1,'%d'))
+               set(f,'Visible','off')
            end
            if t == turns && win == 0
                msgbox('You fail Matlab')
                fid2 = fopen('losses.txt', 'r');
                gamelose = fscanf(fid2,'%d');
-               gamelose(1) = gamelose(1) + 1
+               gamelose(1) = gamelose(1) + 1;
                fclose(fid2);
                fid2 = fopen('losses.txt','w');
                fprintf(fid2, '%d', gamelose(1));
                fid1 = fopen('wins.txt', 'r');
                wl(fscanf(fid2,'%d'),fscanf(fid1,'%d'))
+               set(f,'Visible','off')
            end
     end
 end
 
 function wl(l,w)
     totalgames = sum(w) + sum(l);
-    winp = (w/totalgames) * 100
-    fprintf('You have a win percentage of %d', winp)
+    winp = (w/totalgames) * 100;
+    fprintf('You have a win percentage of %d /n', winp)
 end
 
 
