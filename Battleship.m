@@ -40,7 +40,7 @@ win = 0;
 h = 0;
 t = 0;
 mapcell = struct2cell(map);
-r{1} = [uicontrol('Style', 'text', 'String', '(1,1)','Position', [1 300 50 50]) uicontrol('Style', 'text', 'String', '(1,2)','Position', [60 300 50 50]) uicontrol('Style', 'text', 'String', '(1,3)','Position', [120 300 50 50]); uicontrol('Style', 'text', 'String', '(1,4)','Position', [180 300 50 50]) uicontrol('Style', 'text', 'String', '(1,5)','Position', [240 300 50 50]) uicontrol('Style', 'text', 'String', '(1,6)','Position', [300 300 50 50])]
+r{1} = [uicontrol('Style', 'text', 'String', '(1,1)','Position', [1 300 50 50]) uicontrol('Style', 'text', 'String', '(1,2)','Position', [60 300 50 50]) uicontrol('Style', 'text', 'String', '(1,3)','Position', [120 300 50 50]) uicontrol('Style', 'text', 'String', '(1,4)','Position', [180 300 50 50]) uicontrol('Style', 'text', 'String', '(1,5)','Position', [240 300 50 50]) uicontrol('Style', 'text', 'String', '(1,6)','Position', [300 300 50 50])]
 r{2} = [uicontrol('Style', 'text', 'String', '(2,1)','Position', [1 240 50 50]) uicontrol('Style', 'text', 'String', '(2,2)','Position', [60 240 50 50]) uicontrol('Style', 'text', 'String', '(2,3)','Position', [120 240 50 50]) uicontrol('Style', 'text', 'String', '(2,4)','Position', [180 240 50 50]) uicontrol('Style', 'text', 'String', '(2,5)','Position', [240 240 50 50]) uicontrol('Style', 'text', 'String', '(2,6)','Position', [300 240 50 50])]
 r{3} = [uicontrol('Style', 'text', 'String', '(3,1)','Position', [1 180 50 50]) uicontrol('Style', 'text', 'String', '(3,2)','Position', [60 180 50 50]) uicontrol('Style', 'text', 'String', '(3,3)','Position', [120 180 50 50]) uicontrol('Style', 'text', 'String', '(3,4)','Position', [180 180 50 50]) uicontrol('Style', 'text', 'String', '(3,5)','Position', [240 180 50 50]) uicontrol('Style', 'text', 'String', '(3,6)','Position', [300 180 50 50])]
 r{4} = [uicontrol('Style', 'text', 'String', '(4,1)','Position', [1 120 50 50]) uicontrol('Style', 'text', 'String', '(4,2)','Position', [60 120 50 50]) uicontrol('Style', 'text', 'String', '(4,3)','Position', [120 120 50 50]) uicontrol('Style', 'text', 'String', '(4,4)','Position', [180 120 50 50]) uicontrol('Style', 'text', 'String', '(4,5)','Position', [240 120 50 50]) uicontrol('Style', 'text', 'String', '(4,6)','Position', [300 120 50 50])]
@@ -55,11 +55,11 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
     function callbackfn(source,eventdata)
              x = str2num(get(edit1, 'String'));
              y = str2num(get(edit2, 'String'));
-             Pos = mapcell{y}(x)
+             Pos = mapcell{y}(x);
              Ps = sprintf('row%d(%d)',y,x);
             if Pos == 1 %Designates a hit
                set(r{y}(x),'BackgroundColor','r')
-               mapcell{y}(x) = 2
+               mapcell{y}(x) = 2;
                 h = h+1;
                 t = t+1;
            elseif Pos == 0 %designates a miss
