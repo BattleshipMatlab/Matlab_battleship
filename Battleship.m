@@ -53,10 +53,8 @@ static2 = uicontrol('Style', 'text','String','Pick a y-coordinate ', 'Position',
 edit2 = uicontrol('Style', 'edit', 'Position', [400 140 100 40]);
 Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40], 'Callback', @callbackfn);
     function callbackfn(source,eventdata)
-                x = str2num(get(edit1, 'String'));
-                 y = str2num(get(edit2, 'String'));
-        %z2 needs to call the uicontrol for the designated coordinates. A
-        %workaround needs to be found.
+             x = str2num(get(edit1, 'String'));
+             y = str2num(get(edit2, 'String'));
              Pos = mapcell{y}(x)
              Ps = sprintf('row%d(%d)',y,x);
             if Pos == 1 %Designates a hit
@@ -69,27 +67,42 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
                 mapcell{y}(x) = 3
                 t = t+1;
             elseif Pos == 2
-               sprintf('You have already chosen this area before')
+               warndlg('You have already chosen this area before')
            elseif Pos == 3
-               sprintf('You have already chosen this area before')
+               warndlg('You have already chosen this area before')
             end  
            if h == 10
                win = 1;
-               sprintf('Congratulations, you win!')
+               msgbox('Congratulations, you win!')
+               wins(win)
+           end
+           if t == turns && win == 0
+               msgbox('You fail Matlab')
+               wins(win)
            end
     end
-           
-if win ==1
-    yourwins = fopen('winsandloses.txt', 'w');
-    fprintf(yourwins, '%d ./n', 1)
-    fclose(yourwins)
-else
-    yourwins = fopen('winsandloses.txt', 'w');
-    fprintf(yourwins, '%d ./n', 0)
-    fclose(yourwins)
-end
 end
 
+function wins(win)
+wins = win;
+if win ==1
+    yourwins = fopen('winsandloses.txt', 'w');
+    fprintf(yourwins, '%d ./n', 1);
+    fclose(yourwins);
+else
+    yourwins = fopen('winsandloses.txt', 'w');
+    fprintf(yourwins, '%d ./n', 0);
+    fclose(yourwins);
+end
+gamedata = importdata('winsandloses.txt');
+gamesplayed = length(gamedata);
+totalwins = 0;
+for i=1:gamesplayed
+    totalwins = gamesdata(i) + totalwins
+end
+percentwins = totalwins / gamesplayed;    
+disp(percentwins);
+end
 % The overall structure, and needs are well understood by the coding team.  
 % Some minor work arounds are still required, but for the most part the
 % variables line up well; the code does have some error, but it will be
