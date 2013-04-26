@@ -9,21 +9,21 @@ map6 = struct('row1', [1 1 1 0 0 0], 'row2', [1 0 0 0 0 0], 'row3', [1 0 1 0 0 0
 mapnumber = randi(6);
 maps = {map1 map2 map3 map4 map5 map6};
 map = maps{mapnumber};
-f =figure('Position', [550 200 200 230]);
-static1 = uicontrol('Style', 'text','String','Pick a difficulty!','Position', [1 180 200 50]);
-easy = uicontrol('Style', 'pushbutton', 'String', 'Easy','Position', [1 120 200 50], 'Callback', @callbackfn1);
+f =figure('Position', [550 200 200 230],'Color','black');
+static1 = uicontrol('Style', 'text','String','Pick a difficulty!','FontName','Onyx','FontSize', 18,'Position', [1 180 200 50],'BackgroundColor',[0.49,1,0.83]);
+easy = uicontrol('Style', 'pushbutton', 'String', 'Easy','FontName','Onyx','FontSize', 18,'Position', [1 120 200 50],'BackgroundColor',[.5,1,.5], 'Callback', @callbackfn1);
 function callbackfn1(source,eventdata)
        turns=25;
        set(f,'Visible','off')
        gui2(map,turns)
     end
-med = uicontrol('Style', 'pushbutton', 'String', 'Medium','Position', [1 60 200 50], 'Callback', @callbackfn2);
+med = uicontrol('Style', 'pushbutton', 'String', 'Medium','FontName','Onyx','FontSize', 18,'Position', [1 60 200 50],'BackgroundColor',[0,.5,1], 'Callback', @callbackfn2);
 function callbackfn2(source,eventdata)
        turns=20;
        set(f,'Visible','off')
        gui2(map,turns)
     end
-hard = uicontrol('Style', 'pushbutton', 'String', 'Hard','Position', [1 1 200 50], 'Callback', @callbackfn3);
+hard = uicontrol('Style', 'pushbutton', 'String', 'Hard','FontName','Onyx','FontSize', 18,'Position', [1 1 200 50],'BackgroundColor',[.5,0,1], 'Callback', @callbackfn3);
 function callbackfn3(source,eventdata)
        turns=15;
        set(f,'Visible','off')
