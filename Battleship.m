@@ -9,7 +9,6 @@ map6 = struct('row1', [1 1 1 0 0 0], 'row2', [1 0 0 0 0 0], 'row3', [1 0 1 0 0 0
 mapnumber = randi(6);
 maps = {map1 map2 map3 map4 map5 map6};
 map = maps{mapnumber};
-%Loadwins   add this fuction
 f =figure('Position', [550 200 200 230]);
 static1 = uicontrol('Style', 'text','String','Pick a difficulty!','Position', [1 180 200 50]);
 easy = uicontrol('Style', 'pushbutton', 'String', 'Easy','Position', [1 120 200 50], 'Callback', @callbackfn1);
@@ -74,34 +73,57 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
            if h == 10
                win = 1;
                msgbox('Congratulations, you win!')
-               wins(win)
+               fid1 = fopen('wins.txt', 'r');
+               gamewin = fscanf(fid1,'%d');
+               gamewin(1) = gamewin(1) + 1
+               fclose(fid1);
+               fid2 = fopen('wins.txt','w');
+               fprintf(fid1, '%d', gamewin(1));
+               fid2 = fopen('losses.txt', 'r');
+               wl(fscanf(fid2,'%d'),fscanf(fid1,'%d'))
            end
            if t == turns && win == 0
                msgbox('You fail Matlab')
-               wins(win)
+               fid2 = fopen('losses.txt', 'r');
+               gamelose = fscanf(fid2,'%d');
+               gamelose(1) = gamelose(1) + 1
+               fclose(fid2);
+               fid2 = fopen('losses.txt','w');
+               fprintf(fid2, '%d', gamelose(1));
+               fid1 = fopen('wins.txt', 'r');
+               wl(fscanf(fid2,'%d'),fscanf(fid1,'%d'))
            end
     end
 end
 
-function wins(win)
-if win ==1
-    yourwins = fopen('winsandloses.txt', 'w');
-    fprintf(yourwins, '%d ./n', 1);
-    fclose(yourwins);
-else
-    yourwins = fopen('winsandloses.txt', 'w');
-    fprintf(yourwins, '%d ./n', 0);
-    fclose(yourwins);
+function wl(l,w)
+    totalgames = sum(w) + sum(l);
+    winp = (w/totalgames) * 100
+    fprintf('You have a win percentage of %d', winp)
 end
-gamedata = importdata('winsandloses.txt');
-gamesplayed = length(gamedata);
-totalwins = 0;
-for i=1:gamesplayed
-    totalwins = gamesdata(i) + totalwins
-end
-percentwins = totalwins / gamesplayed;    
-disp(percentwins);
-end
+
+
+
+    
+
+%     function wins(win)
+%         yourwins = fopen('winsandloses.txt', 'w');
+%         fprintf(yourwins, '%d ./n', 1);
+%         fclose(yourwins);
+%   
+%         yourwins = fopen('winsandloses.txt', 'w');
+%         fprintf(yourwins, '%d ./n', 0);
+%         fclose(yourwins);
+%     end
+%         gamedata = importdata('winsandloses.txt');
+%         gamesplayed = length(gamedata);
+%         totalwins = 0;
+%         for i=1:gamesplayed
+%             totalwins(1) = gamedata(i) + totalwins(1)
+%         end
+%     percentwins = totalwins(1) / gamesplayed;    
+%     disp(percentwins);
+%     end
 % The overall structure, and needs are well understood by the coding team.  
 % Some minor work arounds are still required, but for the most part the
 % variables line up well; the code does have some error, but it will be
