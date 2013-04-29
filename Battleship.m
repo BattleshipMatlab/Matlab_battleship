@@ -34,7 +34,7 @@ end
 
 end
 function gui2(map,turns); %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
-f =figure('Position', [350 100 600 600]);
+f =figure('Position', [350 100 600 600],'Color',[0.6, 1.0, 1.0]);
 win = 0;
 h = 0;
 t = 0;
@@ -45,12 +45,13 @@ r{3} = [uicontrol('Style', 'text', 'String', '(3,1)','Position', [120 1 50 50]) 
 r{4} = [uicontrol('Style', 'text', 'String', '(4,1)','Position', [180 1 50 50]) uicontrol('Style', 'text', 'String', '(4,2)','Position', [180 60 50 50]) uicontrol('Style', 'text', 'String', '(4,3)','Position', [180 120 50 50]) uicontrol('Style', 'text', 'String', '(4,4)','Position', [180 180 50 50]) uicontrol('Style', 'text', 'String', '(4,5)','Position', [180 240 50 50]) uicontrol('Style', 'text', 'String', '(4,6)','Position', [180 300 50 50])]; 
 r{5} = [uicontrol('Style', 'text', 'String', '(5,1)','Position', [240 1 50 50]) uicontrol('Style', 'text', 'String', '(5,2)','Position', [240 60 50 50]) uicontrol('Style', 'text', 'String', '(5,3)','Position', [240 120 50 50]) uicontrol('Style', 'text', 'String', '(5,4)','Position', [240 180 50 50]) uicontrol('Style', 'text', 'String', '(5,5)','Position', [240 240 50 50]) uicontrol('Style', 'text', 'String', '(5,6)','Position', [240 300 50 50])];
 r{6} = [uicontrol('Style', 'text', 'String', '(6,1)','Position', [300 1 50 50]) uicontrol('Style', 'text', 'String', '(6,2)','Position', [300 60 50 50]) uicontrol('Style', 'text', 'String', '(6,3)','Position', [300 120 50 50]) uicontrol('Style', 'text', 'String', '(6,4)','Position', [300 180 50 50]) uicontrol('Style', 'text', 'String', '(6,5)','Position', [300 240 50 50]) uicontrol('Style', 'text', 'String', '(6,6)','Position', [300 300 50 50])];
-titlemain = uicontrol('Style', 'text', 'String','Battleship','Position', [1 530 600 70]);
-static1 = uicontrol('Style', 'text','String','Pick a y-coordinate ','Position', [400 190 100 40]);
-edit1 = uicontrol('Style', 'edit', 'Position', [400 140 100 40]);
-static2 = uicontrol('Style', 'text','String','Pick a x-coordinate ', 'Position', [400 300 100 40]);
-edit2 = uicontrol('Style', 'edit', 'Position', [400 240 100 40]);
-Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40], 'Callback', @callbackfn);
+titlemain = uicontrol('Style', 'text', 'String','Battleship','Position', [1 450 600 150],'FontSize', 90,'FontName','Onyx','BackgroundColor',[0,.5,1]);
+titlemain2 = uicontrol('Style', 'text', 'String','Pick an x-coordinate and y-coordinate, press fire and see if you hit a ship. Try to find them all. Good Luck!','Position', [1 380 600 70],'FontSize', 20,'FontName','Onyx','BackgroundColor',[0,.5,1]);
+static1 = uicontrol('Style', 'text','String','Pick a y-coordinate ','Position', [400 190 100 40],'BackgroundColor',[0.0, 1.0, 0.0]);
+edit1 = uicontrol('Style', 'edit', 'Position', [400 140 100 40],'BackgroundColor',[0.0, 1.0, 0.0]);
+static2 = uicontrol('Style', 'text','String','Pick a x-coordinate ', 'Position', [400 300 100 40],'BackgroundColor',[0.0, 1.0, 0.0]);
+edit2 = uicontrol('Style', 'edit', 'Position', [400 240 100 40],'BackgroundColor',[0.0, 1.0, 0.0]);
+Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100 40],'BackgroundColor',[1.0, 0.2, 0.0], 'Callback', @callbackfn);
     function callbackfn(source,eventdata);
              x = str2num(get(edit1, 'String'));
              y = str2num(get(edit2, 'String'));
@@ -62,7 +63,7 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
                 h = h+1;
                 t = t+1;
            elseif Pos == 0 %designates a miss
-                set(r{y}(x),'BackgroundColor', [0.5 0.5 0.5])
+                set(r{y}(x),'BackgroundColor', [0.6, 1.0, 1.0])
                 mapcell{y}(x) = 3;
                 t = t+1;
             elseif Pos == 2
