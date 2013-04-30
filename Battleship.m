@@ -1,4 +1,5 @@
 %final project gui
+
 function Battleship;
 map1 = struct('row1', [1 1 0 0 0 0], 'row2', [0 0 0 0 1 0], 'row3', [0 0 0 0 1 0], 'row4', [1 0 0 0 1 0], 'row5', [1 0 0 0 0 0], 'row6', [0 0 1 1 1 0]);
 map2 = struct('row1', [0 0 1 1 1 0], 'row2', [0 0 0 0 0 0], 'row3', [0 1 0 1 1 0], 'row4', [0 1 0 0 0 0], 'row5', [0 1 0 0 1 0], 'row6', [0 0 0 0 1 0]);
@@ -35,7 +36,7 @@ end
 end
 function gui2(map,turns); %Gui for the map, another gui will be added that allows the player to select the amount of turns/the difficulty, for now turns = 25
 f =figure('Position', [350 100 600 600],'Color',[0.6, 1.0, 1.0]);
-win = 0;
+wins = 0;
 h = 0;
 t = 0;
 mapcell = struct2cell(map);
@@ -72,66 +73,49 @@ Fire = uicontrol('Style', 'pushbutton', 'String', 'FIRE','Position', [400 90 100
                warndlg('You have already chosen this area before')
             end  
            if h == 10
-               win = 1;
+               wins = 1;
                msgbox('Congratulations, you win!')
-               fid1 = fopen('wins.txt', 'r');
-               gamewin = fscanf(fid1,'%d');
-               gamewin(1) = gamewin(1) + 1;
-               fclose(fid1);
-               fid2 = fopen('wins.txt','w');
-               fprintf(fid1, '%d', gamewin(1));
-               fid2 = fopen('losses.txt', 'r');
-               wl(fscanf(fid2,'%d'),fscanf(fid1,'%d'))
+               wl(wins)
                set(f,'Visible','off')
            end
-           if t == turns && win == 0
+           if t == turns && wins == 0
                msgbox('You fail Matlab')
-               fid2 = fopen('losses.txt', 'r');
-               gamelose = fscanf(fid2,'%d');
-               gamelose(1) = gamelose(1) + 1;
-               fclose(fid2);
-               fid2 = fopen('losses.txt','w');
-               fprintf(fid2, '%d', gamelose(1));
-               fid1 = fopen('wins.txt', 'r');
-               wl(fscanf(fid2,'%d'),fscanf(fid1,'%d'))
+               wl(wins)
                set(f,'Visible','off')
            end
     end
 end
 
-function wl(l,w)
-    totalgames = sum(w) + sum(l);
-    winp = (w/totalgames) * 100;
-    fprintf('You have a win percentage of %d /n', winp)
+function wl(wins)
+yourwins = fopen('winsandloses.txt');
+if yourwins ~= -1
+    yourwins = fopen('winsandloses.txt', 'a');
+    if wins == 1
+        fprintf(yourwins, '%d \n', 1);
+        fclose(yourwins);
+    else
+        fprintf(yourwins, '%d \n', 0);
+        fclose(yourwins);
+    end
+else
+    yourwins = fopen('winsandloses.txt', 'w');
+    if wins == 1
+        fprintf(yourwins, '%d \n', 1);
+        fclose(yourwins);
+    else
+        fprintf(yourwins, '%d \n', 0);
+        fclose(yourwins);
+    end
+end
+gamedata = importdata('winsandloses.txt');
+gamesplayed = length(gamedata);
+totalwins = sum(gamedata);
+percentwins = (totalwins / gamesplayed) * 100;
+disp(percentwins);
+w = figure('Position', [600 200 200 230],'Color','black');
+staticwins = uicontrol('Style', 'text','String', sprintf('Total Wins = %d', totalwins),'FontName','Onyx','FontSize', 18,'Position', [1 150 200 50],'BackgroundColor',[0.49,1,0.83]);
+staticgamesplayed = uicontrol('Style', 'text', 'String', sprintf('Total Games Played = %d', gamesplayed),'FontName','Onyx','FontSize', 18,'Position', [1 100 200 50],'BackgroundColor',[0,.5,1]);
+staticpercentwins = uicontrol('Style', 'text', 'String', sprintf('Percent wins = %.f %%', percentwins),'FontName','Onyx','FontSize', 18,'Position', [1 50 200 50],'BackgroundColor',[.5,0,1]);
 end
 
-
-
-    
-
-%     function wins(win)
-%         yourwins = fopen('winsandloses.txt', 'w');
-%         fprintf(yourwins, '%d ./n', 1);
-%         fclose(yourwins);
-%   
-%         yourwins = fopen('winsandloses.txt', 'w');
-%         fprintf(yourwins, '%d ./n', 0);
-%         fclose(yourwins);
-%     end
-%         gamedata = importdata('winsandloses.txt');
-%         gamesplayed = length(gamedata);
-%         totalwins = 0;
-%         for i=1:gamesplayed
-%             totalwins(1) = gamedata(i) + totalwins(1)
-%         end
-%     percentwins = totalwins(1) / gamesplayed;    
-%     disp(percentwins);
-%     end
-% The overall structure, and needs are well understood by the coding team.  
-% Some minor work arounds are still required, but for the most part the
-% variables line up well; the code does have some error, but it will be
-% easily fixed with minor alterations.  The file runs battleship in a GUI
-% which is then checked for a win or a loss for the number of hits compared
-% to the number of ships that there were.  Once that is tallied it records
-% the win.  With more work, music, an intro logo, and a win screen can be
-% made to further expand the program.
+% Done and done, hope you enjoy!
